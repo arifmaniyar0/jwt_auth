@@ -20,7 +20,7 @@ exports.login = function (req, res) {
               }, secret_key, { expiresIn: '1h' });
 
             if(token) {
-                res.cookie('token', token, {httpOnly : true})
+                res.cookie('token',token,{maxAge:86400, httpOnly: true});
                 res.status(200).json({ token : token, userid : payload.username, expired : '1h' })
             }            
         }
@@ -36,10 +36,10 @@ exports.login = function (req, res) {
 }
 
 exports.verify = function (req, res, next) {
-    var token = req.headers.token;
+    // var token = req.headers.token;
+    var token = req.cookies['token'];
     try {
         var payload = jwt.verify(token, secret_key);
-        // res.send(payload)
         next();
     }
     catch(err) {

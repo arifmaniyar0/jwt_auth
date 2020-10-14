@@ -14,9 +14,16 @@ app.get('/',(req, res) => {
 	res.send('welcome to node');
 });
 
+app.get('/setCookie',(req, res) => {
+	res.cookie('token','FUREHEIUD4378HFUEHF834',{maxAge:86400, httpOnly: true});
+	return res.send('Cookie has been set');
+});
+
+
+
 app.get('/test',(req, res) => {
 	var token = req.cookies['token']
-	if (token) { res.send('cookie are', token) }
+	if (token) { res.send(token) }
 	else {
 		res.send('cookie not set')
 	}
