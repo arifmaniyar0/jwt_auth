@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require('express');
 const cookieparser = require('cookie-parser')
 const route = require('./Routes/route');
@@ -19,6 +20,9 @@ app.get('/setCookie',(req, res) => {
 	return res.send('Cookie has been set');
 });
 
+app.get('/process',(req, res) => {
+	return res.send({status : 200, port : process.env.PORT});
+});
 
 
 app.get('/test',(req, res) => {
@@ -30,7 +34,7 @@ app.get('/test',(req, res) => {
 });
 
 
-app.listen(5000,() => {
+app.listen(process.env.PORT,() => {
 	console.log('app running on port 5000')
 });
 
